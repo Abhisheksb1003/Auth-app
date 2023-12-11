@@ -2,15 +2,16 @@ import { useContext, useRef } from "react";
 import classes from "./ProfileForm.module.css";
 import Authcontext from "../../Store/Authcontext";
 
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 const ProfileForm = () => {
   const authctx = useContext(Authcontext);
   const paswordinputref = useRef();
+  const history = useHistory();
 
   const submitHandler = (e) => {
     e.preventDefault();
-
     const enetredpassword = paswordinputref.current.value;
-
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAVdjxsfFD9GI8AS1-icdarMxlh_KQffzA",
       {
@@ -26,6 +27,8 @@ const ProfileForm = () => {
       }
     ).then((response) => {
       //assumption always success
+      history.replace('/')
+
     });
   };
 
@@ -46,5 +49,4 @@ const ProfileForm = () => {
     </form>
   );
 };
-
 export default ProfileForm;
